@@ -40,15 +40,17 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 15px 25px;
+    padding: 12px 22px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     backdrop-filter: blur(10px);
+    flex-shrink: 0;
 }
 
 /* Preset Selector */
 .preset-selector {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
 
@@ -697,8 +699,8 @@ body {
 .score-area {
     display: flex;
     gap: 20px;
-    flex: 0 0 auto;
-    height: 55vh;
+    flex: 1;
+    min-height: 0;
     overflow: hidden;
 }
 
@@ -978,74 +980,81 @@ body {
 }
 
 /* ===========================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN — iPAD OPTIMISED
    =========================== */
 
-/* Large Desktop / iPad Pro 12.9" Landscape */
+/* iPad Pro 12.9" Landscape  ≥ 1366 × 1024 */
 @media (min-width: 1366px) {
-    .match-timer {
-        font-size: 200px;
-    }
-    
-    .fighter-name {
-        font-size: 56px;
-    }
-    
-    .score-value {
-        font-size: 80px;
-    }
+    .club-logo          { width: 100px; height: 100px; }
+    .match-timer        { font-size: 175px; }
+    .fighter-name       { font-size: 52px; }
+    .score-value        { font-size: 115px; }
+    .score-btn          { width: 64px; height: 64px; font-size: 34px; }
 }
 
-/* iPad 11" and smaller tablets */
-@media (max-width: 1194px) {
-    .match-timer {
-        font-size: 140px;
-    }
-    
-    .fighter-name {
-        font-size: 40px;
-    }
-    
-    .score-value {
-        font-size: 60px;
-    }
-    
-    .score-label {
-        font-size: 18px;
-    }
-    
-    .osaekomi-btn {
-        font-size: 18px;
-        padding: 15px;
-    }
-    
-    .osaekomi-time {
-        font-size: 80px;
-    }
+/* iPad Pro 11" / iPad Air 5th gen  1180 – 1365px wide */
+@media (max-width: 1365px) and (min-width: 1180px) {
+    .control-bar        { padding: 10px 18px; gap: 16px; }
+    .club-logo          { width: 80px; height: 80px; }
+    .match-timer-container { gap: 3px; }
+    .match-timer        { font-size: 120px; }
+    .timer-status       { font-size: 14px; }
+    .timer-edit-btn     { font-size: 12px; padding: 6px 11px; min-width: 72px; }
+    .fighter-section    { padding: 20px; gap: 12px; }
+    .fighter-name       { font-size: 40px; }
+    .score-value        { font-size: 90px; }
+    .score-label        { font-size: 18px; height: 24px; margin-bottom: 8px; }
+    .score-btn          { width: 54px; height: 54px; font-size: 28px; }
+    .preset-btn         { padding: 10px 16px; font-size: 18px; min-width: 76px; }
+    .swap-btn, .reset-btn { padding: 10px 16px; font-size: 14px; min-width: 120px; }
+    .fullscreen-btn     { padding: 10px 16px; font-size: 14px; min-width: 140px; }
+    .settings-gear-btn  { padding: 10px 14px; }
+    .osaekomi-btn       { font-size: 17px; padding: 13px; }
+    .osaekomi-time      { font-size: 70px; }
 }
 
-/* Smaller screens */
-@media (max-width: 900px) {
-    .match-timer {
-        font-size: 100px;
-    }
-    
-    .osaekomi-time {
-        font-size: 70px;
-    }
-    
-    .score-value {
-        font-size: 50px;
-    }
-    
-    .winner-text {
-        font-size: 60px;
-    }
-    
-    .winner-reset-btn {
-        font-size: 20px;
-        padding: 15px 35px;
-    }
+/* iPad 10th gen / iPad mini 6th gen  1024 – 1179px wide */
+@media (max-width: 1179px) and (min-width: 900px) {
+    .control-bar        { padding: 8px 14px; gap: 12px; }
+    .club-logo          { width: 68px; height: 68px; }
+    .match-timer-container { gap: 2px; }
+    .match-timer        { font-size: 100px; }
+    .timer-status       { font-size: 13px; }
+    .timer-edit-btn     { font-size: 11px; padding: 5px 9px; min-width: 65px; }
+    .fighter-section    { padding: 15px; gap: 10px; }
+    .fighter-name       { font-size: 34px; }
+    .score-value        { font-size: 75px; }
+    .score-label        { font-size: 16px; height: 22px; margin-bottom: 6px; }
+    .score-btn          { width: 48px; height: 48px; font-size: 26px; }
+    .preset-btn         { padding: 8px 11px; font-size: 16px; min-width: 68px; }
+    .preset-selector    { gap: 7px; }
+    .swap-btn, .reset-btn { padding: 8px 12px; font-size: 13px; min-width: 105px; }
+    .fullscreen-btn     { padding: 8px 12px; font-size: 13px; min-width: 125px; }
+    .settings-gear-btn  { padding: 8px 12px; }
+    .reset-container    { gap: 7px; }
+    .osaekomi-btn       { font-size: 15px; padding: 11px; }
+    .osaekomi-time      { font-size: 62px; }
+}
+
+/* Extra compact — short landscape screens (iPad mini, height ≤ 800px) */
+@media (max-height: 800px) and (orientation: landscape) {
+    .scoreboard-container { padding: 8px; gap: 8px; }
+    .control-bar        { padding: 7px 14px; }
+    .club-logo          { width: 58px; height: 58px; }
+    .match-timer        { font-size: 88px; }
+    .score-btn          { width: 44px; height: 44px; font-size: 24px; }
+    .score-label        { height: 20px; margin-bottom: 4px; font-size: 15px; }
+    .fighter-section    { padding: 12px; gap: 8px; }
+    .osaekomi-btn       { font-size: 14px; padding: 10px; }
+}
+
+/* Small / non-tablet screens  ≤ 899px */
+@media (max-width: 899px) {
+    .match-timer        { font-size: 100px; }
+    .osaekomi-time      { font-size: 70px; }
+    .score-value        { font-size: 50px; }
+    .winner-text        { font-size: 60px; }
+    .winner-reset-btn   { font-size: 20px; padding: 15px 35px; }
 }
 
 /* Portrait mode warning (not ideal for scoreboard) */
