@@ -41,7 +41,8 @@ const state = {
     // Golden Score runtime state (enabled flag lives in ageGroupConfigs per group)
     goldenScoreActive: false,
     goldenScoreTime: 0,
-    goldenScoreInterval: null
+    goldenScoreInterval: null,
+    goldenScoreWinner: null  // { player, type } — set when GS ends via a score, cleared on undo
 };
 
 // Age group configurations
@@ -168,9 +169,15 @@ function setupEventListeners() {
             const player = e.target.dataset.player;
             const type = e.target.dataset.type;
             const isIncrement = e.target.classList.contains('increment');
-            
-            if (state.matchEnded) return;
-            
+
+            if (state.matchEnded) {
+                // Allow decrement only to undo an accidental golden score point
+                if (!isIncrement && state.goldenScoreWinner) {
+                    decrementScore(player, type);
+                }
+                return;
+            }
+
             if (isIncrement) {
                 incrementScore(player, type);
             } else {
@@ -520,6 +527,7 @@ function incrementScore(player, type, fromConversion = false) {
 
     // During golden score, first scoring point immediately wins (except shido)
     if (state.goldenScoreActive && type !== 'shido') {
+        state.goldenScoreWinner = { player, type };
         endMatch(`GOLDEN SCORE - ${player.toUpperCase()} WINS`);
         return;
     }
@@ -549,7 +557,30 @@ function decrementScore(player, type) {
     if (state.scores[player][type] > 0) {
         state.scores[player][type]--;
         updateScoreDisplay(player, type);
+
+        // If this removed the accidental golden score point, resume golden score
+        const gs = state.goldenScoreWinner;
+        if (gs && gs.player === player && gs.type === type) {
+            state.goldenScoreWinner = null;
+            resumeAfterUndoGoldenScore();
+        }
     }
+}
+
+function resumeAfterUndoGoldenScore() {
+    state.matchEnded = false;
+    state.goldenScoreActive = true;
+
+    const timerElement = document.getElementById('matchTimer');
+    const statusElement = document.getElementById('timerStatus');
+
+    timerElement.classList.remove('finished', 'running');
+    timerElement.classList.add('golden-score');
+    statusElement.classList.remove('winner');
+    statusElement.textContent = 'GOLDEN SCORE — TAP TO START';
+
+    updateTimerDisplay();
+    console.log('Golden Score resumed after undo');
 }
 
 function updateScoreDisplay(player, type) {
@@ -742,6 +773,7 @@ function resetMatch() {
     stopOsaekomi();
     stopGoldenScore();
     state.goldenScoreTime = 0;
+    state.goldenScoreWinner = null;
     
     // Reset state
     state.matchEnded = false;
