@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Judo Scoreboard</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Capacitor Scripts (for iOS app) -->
+    <script type="module" src="capacitor.js"></script>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="scoreboard-container">
+        
+        <!-- Top Control Bar -->
+        <div class="control-bar">
+            <div class="preset-selector">
+                <button class="preset-btn active" data-preset="u8">U8</button>
+                <button class="preset-btn" data-preset="u10">U10</button>
+                <button class="preset-btn" data-preset="u12">U12</button>
+                <button class="preset-btn" data-preset="u14">U14</button>
+            </div>
+            
+            <div class="match-timer-container">
+                <img src="logo.png" alt="Judo Otoshi" class="club-logo">
+                <div class="timer-controls-row">
+                    <div class="match-timer" id="matchTimer">2:00</div>
+                    <button class="timer-edit-btn" id="timerEditBtn">✎ EDIT</button>
+                </div>
+                <div class="timer-status" id="timerStatus">TAP TO START</div>
+            </div>
+            
+            <div class="reset-container">
+                <button class="swap-btn" id="swapBtn">⇄ SWAP SIDES</button>
+                <button class="reset-btn" id="resetBtn">RESET MATCH</button>
+                <button class="fullscreen-btn" id="fullscreenBtn">⛶ FULLSCREEN</button>
+                <button class="settings-gear-btn" id="settingsBtn" title="Tournament Settings">⚙️</button>
+            </div>
+        </div>
+
+        <!-- Main Score Area -->
+        <div class="score-area">
+            
+            <!-- Blue Fighter (Left) -->
+            <div class="fighter-section blue-section">
+                <div class="fighter-header">
+                    <h2 class="fighter-name">BLUE</h2>
+                    <div class="osaekomi-timer-display" id="blueOsaekomiDisplay">
+                        <div class="osaekomi-time" id="blueOsaekomiTime">0</div>
+                        <button class="osaekomi-stop" id="blueOsaekomiStop">STOP</button>
+                    </div>
+                </div>
+                
+                <div class="scores-container">
+                    <!-- Yuko -->
+                    <div class="score-item yuko-item" id="blueYukoContainer">
+                        <div class="score-label">YUKO</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="blue" data-type="yuko">+</button>
+                            <div class="score-value" id="blueYuko">0</div>
+                            <button class="score-btn decrement" data-player="blue" data-type="yuko">−</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Wazari -->
+                    <div class="score-item wazari-item">
+                        <div class="score-label">WAZARI</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="blue" data-type="wazari">+</button>
+                            <div class="score-value" id="blueWazari">0</div>
+                            <button class="score-btn decrement" data-player="blue" data-type="wazari">−</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Ippon -->
+                    <div class="score-item ippon-item">
+                        <div class="score-label">IPPON</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="blue" data-type="ippon">+</button>
+                            <div class="score-value" id="blueIppon">0</div>
+                            <button class="score-btn decrement" data-player="blue" data-type="ippon">−</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Shido -->
+                    <div class="score-item shido-item" id="blueShidoContainer">
+                        <div class="score-label">SHIDO</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="blue" data-type="shido">+</button>
+                            <div class="score-value" id="blueShido">0</div>
+                            <button class="score-btn decrement" data-player="blue" data-type="shido">−</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Osaekomi Button -->
+                <div class="osaekomi-btn-container">
+                    <button class="osaekomi-btn" data-player="blue">START OSAEKOMI</button>
+                </div>
+            </div>
+
+            <!-- White Fighter (Right) -->
+            <div class="fighter-section white-section">
+                <div class="fighter-header">
+                    <h2 class="fighter-name">WHITE</h2>
+                    <div class="osaekomi-timer-display" id="whiteOsaekomiDisplay">
+                        <div class="osaekomi-time" id="whiteOsaekomiTime">0</div>
+                        <button class="osaekomi-stop" id="whiteOsaekomiStop">STOP</button>
+                    </div>
+                </div>
+                
+                <div class="scores-container">
+                    <!-- Yuko -->
+                    <div class="score-item yuko-item" id="whiteYukoContainer">
+                        <div class="score-label">YUKO</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="white" data-type="yuko">+</button>
+                            <div class="score-value" id="whiteYuko">0</div>
+                            <button class="score-btn decrement" data-player="white" data-type="yuko">−</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Wazari -->
+                    <div class="score-item wazari-item">
+                        <div class="score-label">WAZARI</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="white" data-type="wazari">+</button>
+                            <div class="score-value" id="whiteWazari">0</div>
+                            <button class="score-btn decrement" data-player="white" data-type="wazari">−</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Ippon -->
+                    <div class="score-item ippon-item">
+                        <div class="score-label">IPPON</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="white" data-type="ippon">+</button>
+                            <div class="score-value" id="whiteIppon">0</div>
+                            <button class="score-btn decrement" data-player="white" data-type="ippon">−</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Shido -->
+                    <div class="score-item shido-item" id="whiteShidoContainer">
+                        <div class="score-label">SHIDO</div>
+                        <div class="score-controls">
+                            <button class="score-btn increment" data-player="white" data-type="shido">+</button>
+                            <div class="score-value" id="whiteShido">0</div>
+                            <button class="score-btn decrement" data-player="white" data-type="shido">−</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Osaekomi Button -->
+                <div class="osaekomi-btn-container">
+                    <button class="osaekomi-btn" data-player="white">START OSAEKOMI</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="keyboard-hint">Space = Timer &nbsp;|&nbsp; 1 = Osaekomi Blue &nbsp;|&nbsp; 2 = Osaekomi White &nbsp;|&nbsp; 3 = Stop</div>
+
+    <!-- Settings Modal -->
+    <div class="settings-overlay" id="settingsOverlay">
+        <div class="settings-modal">
+            <div class="settings-header">
+                <span class="settings-title">⚙️ Tournament Settings</span>
+                <button class="settings-close-btn" id="settingsCloseBtn">✕</button>
+            </div>
+            <div class="settings-tabs-bar" id="settingsTabsBar">
+                <button class="settings-tab active" data-tab="u8">U8</button>
+                <button class="settings-tab" data-tab="u10">U10</button>
+                <button class="settings-tab" data-tab="u12">U12</button>
+                <button class="settings-tab" data-tab="u14">U14</button>
+                <button class="settings-tab" data-tab="global">Global</button>
+            </div>
+            <div class="settings-body" id="settingsBody">
+                <!-- Populated by JS -->
+            </div>
+            <div class="settings-footer">
+                <button class="settings-defaults-btn" id="settingsResetBtn">↺ Reset to Defaults</button>
+                <button class="settings-save-btn" id="settingsSaveBtn">✓ Save &amp; Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

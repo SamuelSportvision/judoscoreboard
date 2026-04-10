@@ -1,0 +1,1146 @@
+/* ===========================
+   RESET & BASE STYLES
+   =========================== */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    user-select: none;
+    -webkit-user-select: none;
+    position: fixed;
+}
+
+/* ===========================
+   MAIN CONTAINER
+   =========================== */
+.scoreboard-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    gap: 15px;
+}
+
+/* ===========================
+   CONTROL BAR (TOP)
+   =========================== */
+.control-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+/* Preset Selector */
+.preset-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.preset-btn {
+    padding: 15px 28px;
+    font-size: 22px;
+    font-weight: bold;
+    border: 4px solid #ffffff;
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 90px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.preset-btn:hover {
+    background: rgba(0, 0, 0, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
+}
+
+.preset-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #4c3fb8;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+}
+
+/* Match Timer */
+.match-timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+}
+
+.club-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.7));
+}
+
+.timer-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+.timer-edit-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.timer-edit-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+.timer-edit-btn:active {
+    transform: scale(0.95);
+}
+
+.match-timer.editing {
+    border: 3px solid #fbbf24;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(251, 191, 36, 0.1);
+}
+
+.match-timer input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: center;
+    width: 100px;
+    outline: none;
+    font-family: inherit;
+}
+
+.match-timer {
+    font-size: 180px;
+    font-weight: bold;
+    color: #f97316;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
+    line-height: 1;
+}
+
+.match-timer:hover {
+    transform: scale(1.05);
+}
+
+.match-timer.running {
+    color: #10b981;
+    text-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+}
+
+.match-timer.finished {
+    color: #ef4444;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.timer-status {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.timer-status.winner {
+    font-size: 28px;
+    color: #fbbf24;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+    letter-spacing: 4px;
+}
+
+/* Reset Button and Fullscreen Button */
+.reset-container {
+    display: flex;
+    gap: 10px;
+}
+
+.swap-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 3px solid #ffffff;
+    background: #000000;
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.swap-btn:hover {
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
+}
+
+.reset-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 3px solid #ffffff;
+    background: #000000;
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.reset-btn:hover {
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
+}
+
+.fullscreen-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 3px solid #ffffff;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.fullscreen-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.5);
+}
+
+/* Settings Gear Button */
+.settings-gear-btn {
+    padding: 12px 18px;
+    font-size: 22px;
+    border: 3px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.settings-gear-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+
+/* ===========================
+   SETTINGS MODAL
+   =========================== */
+.settings-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-overlay.active {
+    display: flex;
+}
+
+.settings-modal {
+    background: linear-gradient(145deg, #1e2a45, #16213e);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    width: 680px;
+    max-width: 95vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.settings-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.settings-close-btn {
+    background: rgba(239, 68, 68, 0.3);
+    border: 2px solid #ef4444;
+    color: #ffffff;
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-close-btn:hover {
+    background: rgba(239, 68, 68, 0.6);
+    transform: scale(1.1);
+}
+
+.settings-tabs-bar {
+    display: flex;
+    gap: 6px;
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.settings-tab {
+    padding: 8px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+}
+
+.settings-tab:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.settings-tab.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: #667eea;
+    color: #ffffff;
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.5);
+}
+
+.settings-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 20px 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-content: flex-start;
+}
+
+/* Tab panels — all rendered simultaneously */
+.settings-panel {
+    display: none;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.settings-panel.active {
+    display: flex;
+}
+
+.settings-section {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px 20px;
+    flex: 1;
+    min-width: 240px;
+}
+
+.settings-section h3 {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-section .settings-hint {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 12px;
+    margin-top: -8px;
+    font-style: italic;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 12px;
+}
+
+.settings-row:last-child {
+    border-bottom: none;
+}
+
+.settings-row label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    flex: 1;
+}
+
+.settings-row .row-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.settings-row .row-right span {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Number inputs */
+.settings-number {
+    width: 70px;
+    padding: 6px 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.settings-number-sm {
+    width: 52px;
+    padding: 5px 6px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.settings-number:focus,
+.settings-number-sm:focus {
+    border-color: #667eea;
+}
+
+/* Toggle (checkbox styled) */
+.settings-toggle {
+    width: 44px;
+    height: 24px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.settings-toggle::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.settings-toggle:checked {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: #667eea;
+}
+
+.settings-toggle:checked::after {
+    transform: translateX(20px);
+    background: #ffffff;
+}
+
+.settings-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    gap: 12px;
+}
+
+.settings-defaults-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.settings-defaults-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.settings-save-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #10b981;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    letter-spacing: 1px;
+}
+
+.settings-save-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+}
+
+/* ===========================
+   WINNER DISPLAY
+   =========================== */
+.winner-display {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.winner-display.active {
+    display: flex;
+}
+
+.winner-content {
+    text-align: center;
+}
+
+.winner-text {
+    font-size: 120px;
+    font-weight: bold;
+    color: #fbbf24;
+    text-shadow: 0 0 40px rgba(251, 191, 36, 0.8);
+    margin-bottom: 60px;
+    letter-spacing: 5px;
+    animation: winnerPulse 2s ease-in-out infinite;
+}
+
+@keyframes winnerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.winner-reset-btn {
+    padding: 20px 50px;
+    font-size: 28px;
+    font-weight: bold;
+    border: 3px solid #ef4444;
+    background: #ef4444;
+    color: #ffffff;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.winner-reset-btn:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+}
+
+/* ===========================
+   OSAEKOMI TIMER IN PLAYER BOX
+   =========================== */
+.osaekomi-timer-display {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    background: rgba(251, 191, 36, 0.95);
+    border: 3px solid #fbbf24;
+    border-radius: 15px;
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    width: 80%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.fighter-section {
+    position: relative; /* Needed for absolute positioning of timer */
+}
+
+.osaekomi-timer-display.active {
+    display: flex;
+}
+
+.osaekomi-time {
+    font-size: 80px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    line-height: 1;
+}
+
+.osaekomi-stop {
+    padding: 8px 25px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #ef4444;
+    background: #ef4444;
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.osaekomi-stop:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+/* ===========================
+   SCORE AREA (MAIN)
+   =========================== */
+.score-area {
+    display: flex;
+    gap: 20px;
+    flex: 0 0 auto;
+    height: 55vh;
+    overflow: hidden;
+}
+
+/* ===========================
+   FIGHTER SECTIONS
+   =========================== */
+.fighter-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 20px;
+    gap: 20px;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.blue-section {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+}
+
+.white-section {
+    background: linear-gradient(135deg, #6b7280 0%, #d1d5db 100%);
+    box-shadow: 0 10px 40px rgba(107, 114, 128, 0.3);
+}
+
+.fighter-header {
+    text-align: center;
+}
+
+.fighter-name {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+/* ===========================
+   SCORES CONTAINER
+   =========================== */
+.scores-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex: 1;
+    justify-content: space-around;
+    min-height: 0;
+    overflow: visible;
+    margin-bottom: 5px;
+}
+
+.score-item {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 15px 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    gap: 8px;
+}
+
+/* Reduce score item padding when osaekomi is active */
+.fighter-section.osaekomi-active .score-item,
+.fighter-section:has(.osaekomi-timer-display.active) .score-item {
+    padding: 10px 10px;
+}
+
+.fighter-section.osaekomi-active .score-value,
+.fighter-section:has(.osaekomi-timer-display.active) .score-value {
+    font-size: 100px;
+}
+
+.score-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.score-item.hidden {
+    display: none;
+}
+
+.score-label {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    padding: 0;
+    flex-shrink: 0;
+    width: 100%;
+    order: 1;
+    height: 30px; /* Fixed height */
+}
+
+.score-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    order: 2;
+    margin: 0;
+}
+
+.score-controls .score-btn.increment {
+    order: 1;
+}
+
+.score-controls .score-value {
+    order: 2;
+}
+
+.score-controls .score-btn.decrement {
+    order: 3;
+}
+
+.score-value {
+    font-size: 120px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: font-size 0.3s ease;
+    line-height: 1;
+}
+
+/* Make scores smaller when osaekomi is active */
+.fighter-section.osaekomi-active .score-value,
+.fighter-section:has(.osaekomi-timer-display.active) .score-value {
+    font-size: 120px;
+}
+
+.score-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    font-weight: bold;
+    border: 3px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+
+.score-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.score-btn:active {
+    transform: scale(0.95);
+}
+
+.score-btn.increment {
+    background: rgba(74, 222, 128, 0.3);
+    border-color: #4ade80;
+}
+
+.score-btn.increment:hover {
+    background: rgba(74, 222, 128, 0.5);
+}
+
+.score-btn.decrement {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #ef4444;
+}
+
+.score-btn.decrement:hover {
+    background: rgba(239, 68, 68, 0.5);
+}
+
+/* ===========================
+   OSAEKOMI BUTTON
+   =========================== */
+.osaekomi-btn-container {
+    margin-top: 10px;
+    flex-shrink: 0;
+    padding-top: 0;
+    width: 100%;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    position: relative;
+    z-index: 20;
+}
+
+.osaekomi-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 3px solid #fbbf24;
+    background: rgba(251, 191, 36, 0.4);
+    color: #ffffff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.5);
+    margin: 0;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    position: relative;
+    z-index: 25;
+}
+
+.osaekomi-btn:hover {
+    background: rgba(251, 191, 36, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(251, 191, 36, 0.3);
+}
+
+.osaekomi-btn:active {
+    transform: translateY(0);
+}
+
+/* ===========================
+   FULLSCREEN MODE ADJUSTMENTS
+   =========================== */
+:fullscreen .score-value,
+:-webkit-full-screen .score-value,
+:-moz-full-screen .score-value,
+:-ms-fullscreen .score-value {
+    font-size: 120px;
+}
+
+:fullscreen .fighter-section.osaekomi-active .score-value,
+:-webkit-full-screen .fighter-section.osaekomi-active .score-value,
+:-moz-full-screen .fighter-section.osaekomi-active .score-value,
+:-ms-fullscreen .fighter-section.osaekomi-active .score-value {
+    font-size: 90px;
+}
+
+:fullscreen .scores-container,
+:-webkit-full-screen .scores-container,
+:-moz-full-screen .scores-container,
+:-ms-fullscreen .scores-container {
+    align-items: stretch;
+}
+
+:fullscreen .score-item,
+:-webkit-full-screen .score-item,
+:-moz-full-screen .score-item,
+:-ms-fullscreen .score-item {
+    min-height: 400px;
+}
+
+:fullscreen .fighter-section.osaekomi-active .score-item,
+:-webkit-full-screen .fighter-section.osaekomi-active .score-item,
+:-moz-full-screen .fighter-section.osaekomi-active .score-item,
+:-ms-fullscreen .fighter-section.osaekomi-active .score-item {
+    min-height: 280px;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+/* Large Desktop / iPad Pro 12.9" Landscape */
+@media (min-width: 1366px) {
+    .match-timer {
+        font-size: 200px;
+    }
+    
+    .fighter-name {
+        font-size: 56px;
+    }
+    
+    .score-value {
+        font-size: 80px;
+    }
+}
+
+/* iPad 11" and smaller tablets */
+@media (max-width: 1194px) {
+    .match-timer {
+        font-size: 140px;
+    }
+    
+    .fighter-name {
+        font-size: 40px;
+    }
+    
+    .score-value {
+        font-size: 60px;
+    }
+    
+    .score-label {
+        font-size: 18px;
+    }
+    
+    .osaekomi-btn {
+        font-size: 18px;
+        padding: 15px;
+    }
+    
+    .osaekomi-time {
+        font-size: 80px;
+    }
+}
+
+/* Smaller screens */
+@media (max-width: 900px) {
+    .match-timer {
+        font-size: 100px;
+    }
+    
+    .osaekomi-time {
+        font-size: 70px;
+    }
+    
+    .score-value {
+        font-size: 50px;
+    }
+    
+    .winner-text {
+        font-size: 60px;
+    }
+    
+    .winner-reset-btn {
+        font-size: 20px;
+        padding: 15px 35px;
+    }
+}
+
+/* Portrait mode warning (not ideal for scoreboard) */
+@media (orientation: portrait) {
+    body::before {
+        content: "⟲ Please rotate device to landscape mode";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        text-align: center;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 80%;
+    }
+    
+    .scoreboard-container {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+@keyframes scoreChange {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.score-value.changed {
+    animation: scoreChange 0.3s ease;
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+button:focus {
+    outline: 3px solid rgba(102, 126, 234, 0.6);
+    outline-offset: 2px;
+}
+
+/* ===========================
+   KEYBOARD HINT
+   =========================== */
+.keyboard-hint {
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: 1px;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* ===========================
+   GOLDEN SCORE
+   =========================== */
+@keyframes goldenPulse {
+    0%, 100% { text-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
+    50%       { text-shadow: 0 0 28px rgba(255, 215, 0, 0.95), 0 0 6px rgba(255, 165, 0, 0.8); }
+}
+
+@keyframes redPulse {
+    0%, 100% { text-shadow: 0 0 12px rgba(255, 60, 60, 0.5); }
+    50%       { text-shadow: 0 0 28px rgba(255, 60, 60, 0.95), 0 0 6px rgba(200, 0, 0, 0.8); }
+}
+
+/* Golden score running — gold */
+#matchTimer.golden-score.running {
+    color: #FFD700;
+    animation: goldenPulse 1.6s ease-in-out infinite;
+}
+
+/* Golden score paused / waiting to start — red, no animation */
+#matchTimer.golden-score:not(.running) {
+    color: #FF3C3C;
+    animation: none;
+    text-shadow: none;
+}
+
+/* ===========================
+   PRINT STYLES (Hide for print)
+   =========================== */
+@media print {
+    body {
+        background: white;
+    }
+    
+    button {
+        display: none;
+    }
+}
