@@ -166,6 +166,32 @@
 
     <div class="keyboard-hint">Space = Timer &nbsp;|&nbsp; 1 = Osaekomi Blue &nbsp;|&nbsp; 2 = Osaekomi White &nbsp;|&nbsp; 3 = Stop</div>
 
+    <!-- Timer Edit Modal (no keyboard — iOS fullscreen safe) -->
+    <div class="timer-edit-overlay" id="timerEditOverlay">
+        <div class="timer-edit-modal">
+            <div class="timer-edit-title">Set Match Time</div>
+            <div class="timer-edit-display">
+                <div class="timer-edit-col">
+                    <button class="timer-edit-step" id="timerMinUp">▲</button>
+                    <div class="timer-edit-val" id="timerEditMin">2</div>
+                    <button class="timer-edit-step" id="timerMinDown">▼</button>
+                    <div class="timer-edit-unit">MIN</div>
+                </div>
+                <div class="timer-edit-colon">:</div>
+                <div class="timer-edit-col">
+                    <button class="timer-edit-step" id="timerSecUp">▲</button>
+                    <div class="timer-edit-val" id="timerEditSec">00</div>
+                    <button class="timer-edit-step" id="timerSecDown">▼</button>
+                    <div class="timer-edit-unit">SEC</div>
+                </div>
+            </div>
+            <div class="timer-edit-actions">
+                <button class="timer-edit-cancel" id="timerEditCancel">Cancel</button>
+                <button class="timer-edit-set" id="timerEditSet">Set Time</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Settings Modal -->
     <div class="settings-overlay" id="settingsOverlay">
         <div class="settings-modal">

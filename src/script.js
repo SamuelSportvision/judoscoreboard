@@ -110,13 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initializeApp() {
-    // Apply default preset
     applyPreset('u8');
-    
-    // Setup event listeners
     setupEventListeners();
-    
-    // Initialize Capacitor plugins if available
+    setupTimerEditListeners();
     initializeCapacitor();
 }
 
@@ -348,91 +344,62 @@ function updateTimerDisplay() {
 }
 
 // ===========================
-// MANUAL TIMER EDIT
+// MANUAL TIMER EDIT (tap-based — no keyboard, iOS fullscreen safe)
 // ===========================
+let timerEditMins = 2;
+let timerEditSecs = 0;
+
 function enableTimerEdit() {
-    if (state.matchRunning || state.goldenScoreActive) {
-        alert('Please stop the timer before editing');
-        return;
-    }
-    
-    const timerElement = document.getElementById('matchTimer');
-    const currentTime = formatTime(state.matchTimeRemaining);
-    
-    // Create input field
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = currentTime;
-    input.pattern = '[0-9]{1,2}:[0-5][0-9]';
-    input.maxLength = 5;
-    input.style.width = '120px';
-    input.style.fontSize = 'inherit';
-    input.style.fontWeight = 'inherit';
-    input.style.textAlign = 'center';
-    input.style.background = 'transparent';
-    input.style.border = 'none';
-    input.style.color = 'inherit';
-    input.style.outline = 'none';
-    input.style.fontFamily = 'inherit';
-    
-    // Replace timer text with input
-    timerElement.textContent = '';
-    timerElement.appendChild(input);
-    timerElement.classList.add('editing');
-    input.focus();
-    input.select();
-    
-    // Handle input
-    input.addEventListener('blur', () => {
-        saveTimerEdit(input.value);
-    });
-    
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            input.blur();
-        } else if (e.key === 'Escape') {
-            cancelTimerEdit();
-        }
-    });
-    
-    // Prevent timer click while editing
-    timerElement.style.pointerEvents = 'none';
+    if (state.matchRunning || state.goldenScoreActive) return;
+
+    timerEditMins = Math.floor(state.matchTimeRemaining / 60);
+    timerEditSecs = state.matchTimeRemaining % 60;
+    refreshTimerEditDisplay();
+
+    document.getElementById('timerEditOverlay').classList.add('active');
 }
 
-function saveTimerEdit(timeString) {
-    const timerElement = document.getElementById('matchTimer');
-    timerElement.classList.remove('editing');
-    timerElement.style.pointerEvents = 'auto';
-    
-    // Parse time string (MM:SS format)
-    const timePattern = /^(\d{1,2}):([0-5]\d)$/;
-    const match = timeString.match(timePattern);
-    
-    if (match) {
-        const minutes = parseInt(match[1], 10);
-        const seconds = parseInt(match[2], 10);
-        const totalSeconds = (minutes * 60) + seconds;
-        
-        if (totalSeconds >= 0 && totalSeconds <= 3600) { // Max 60 minutes
-            state.matchTimeRemaining = totalSeconds;
-            state.matchDuration = totalSeconds;
-            updateTimerDisplay();
-            console.log(`Timer set to ${timeString} (${totalSeconds} seconds)`);
-        } else {
-            alert('Invalid time. Please enter a time between 0:00 and 60:00');
-            updateTimerDisplay();
-        }
-    } else {
-        alert('Invalid format. Please use MM:SS format (e.g., 2:30)');
+function refreshTimerEditDisplay() {
+    document.getElementById('timerEditMin').textContent = timerEditMins;
+    document.getElementById('timerEditSec').textContent = String(timerEditSecs).padStart(2, '0');
+}
+
+function closeTimerEdit() {
+    document.getElementById('timerEditOverlay').classList.remove('active');
+}
+
+function applyTimerEdit() {
+    const total = (timerEditMins * 60) + timerEditSecs;
+    if (total > 0) {
+        state.matchTimeRemaining = total;
+        state.matchDuration = total;
         updateTimerDisplay();
     }
+    closeTimerEdit();
 }
 
-function cancelTimerEdit() {
-    const timerElement = document.getElementById('matchTimer');
-    timerElement.classList.remove('editing');
-    timerElement.style.pointerEvents = 'auto';
-    updateTimerDisplay();
+function setupTimerEditListeners() {
+    document.getElementById('timerMinUp').addEventListener('click', () => {
+        timerEditMins = Math.min(59, timerEditMins + 1);
+        refreshTimerEditDisplay();
+    });
+    document.getElementById('timerMinDown').addEventListener('click', () => {
+        timerEditMins = Math.max(0, timerEditMins - 1);
+        refreshTimerEditDisplay();
+    });
+    document.getElementById('timerSecUp').addEventListener('click', () => {
+        timerEditSecs = timerEditSecs >= 55 ? 0 : timerEditSecs + 5;
+        refreshTimerEditDisplay();
+    });
+    document.getElementById('timerSecDown').addEventListener('click', () => {
+        timerEditSecs = timerEditSecs <= 0 ? 55 : timerEditSecs - 5;
+        refreshTimerEditDisplay();
+    });
+    document.getElementById('timerEditSet').addEventListener('click', applyTimerEdit);
+    document.getElementById('timerEditCancel').addEventListener('click', closeTimerEdit);
+    document.getElementById('timerEditOverlay').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('timerEditOverlay')) closeTimerEdit();
+    });
 }
 
 function endMatch(reason) {

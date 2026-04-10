@@ -128,24 +128,6 @@ body {
     transform: scale(0.95);
 }
 
-.match-timer.editing {
-    border: 3px solid #fbbf24;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(251, 191, 36, 0.1);
-}
-
-.match-timer input {
-    background: transparent;
-    border: none;
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    text-align: center;
-    width: 100px;
-    outline: none;
-    font-family: inherit;
-}
 
 .match-timer {
     font-size: 180px;
@@ -255,6 +237,150 @@ body {
     background: #f0f0f0;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(255, 255, 255, 0.5);
+}
+
+/* ===========================
+   TIMER EDIT MODAL (keyboard-free)
+   =========================== */
+.timer-edit-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-edit-overlay.active {
+    display: flex;
+}
+
+.timer-edit-modal {
+    background: linear-gradient(145deg, #1e2a45, #16213e);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 22px;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    min-width: 320px;
+}
+
+.timer-edit-title {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+}
+
+.timer-edit-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timer-edit-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.timer-edit-colon {
+    font-size: 64px;
+    font-weight: bold;
+    color: #f97316;
+    line-height: 1;
+    padding-bottom: 28px;
+}
+
+.timer-edit-val {
+    font-size: 72px;
+    font-weight: bold;
+    color: #f97316;
+    line-height: 1;
+    min-width: 90px;
+    text-align: center;
+}
+
+.timer-edit-unit {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.timer-edit-step {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-radius: 10px;
+    width: 64px;
+    height: 44px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-edit-step:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.timer-edit-step:active {
+    transform: scale(0.92);
+    background: rgba(249, 115, 22, 0.35);
+}
+
+.timer-edit-actions {
+    display: flex;
+    gap: 14px;
+    width: 100%;
+}
+
+.timer-edit-cancel {
+    flex: 1;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.timer-edit-cancel:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.timer-edit-set {
+    flex: 2;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #f97316;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #ffffff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+    letter-spacing: 1px;
+}
+
+.timer-edit-set:hover {
+    background: linear-gradient(135deg, #ea580c, #c2410c);
+    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
 }
 
 /* Settings Gear Button */
