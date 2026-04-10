@@ -359,11 +359,66 @@ let timerEditSecs = 0;
 function enableTimerEdit() {
     if (state.matchRunning || state.goldenScoreActive) return;
 
-    timerEditMins = Math.floor(state.matchTimeRemaining / 60);
-    timerEditSecs = state.matchTimeRemaining % 60;
-    refreshTimerEditDisplay();
+    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
 
-    document.getElementById('timerEditOverlay').classList.add('active');
+    if (isFullscreen) {
+        // Tap-based modal — no keyboard, safe for iOS fullscreen
+        timerEditMins = Math.floor(state.matchTimeRemaining / 60);
+        timerEditSecs = state.matchTimeRemaining % 60;
+        refreshTimerEditDisplay();
+        document.getElementById('timerEditOverlay').classList.add('active');
+    } else {
+        // Original keyboard input — desktop experience
+        openTimerEditKeyboard();
+    }
+}
+
+function openTimerEditKeyboard() {
+    const timerElement = document.getElementById('matchTimer');
+    const currentTime = formatTime(state.matchTimeRemaining);
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = currentTime;
+    input.pattern = '[0-9]{1,2}:[0-5][0-9]';
+    input.maxLength = 5;
+    input.style.cssText = 'width:120px;font-size:inherit;font-weight:inherit;text-align:center;background:transparent;border:none;color:inherit;outline:none;font-family:inherit;';
+
+    timerElement.textContent = '';
+    timerElement.appendChild(input);
+    timerElement.classList.add('editing');
+    timerElement.style.pointerEvents = 'none';
+    input.focus();
+    input.select();
+
+    input.addEventListener('blur', () => saveTimerKeyboard(input.value));
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') input.blur();
+        if (e.key === 'Escape') cancelTimerKeyboard();
+    });
+}
+
+function saveTimerKeyboard(timeString) {
+    const timerElement = document.getElementById('matchTimer');
+    timerElement.classList.remove('editing');
+    timerElement.style.pointerEvents = 'auto';
+
+    const match = timeString.match(/^(\d{1,2}):([0-5]\d)$/);
+    if (match) {
+        const total = (parseInt(match[1], 10) * 60) + parseInt(match[2], 10);
+        if (total >= 0 && total <= 3600) {
+            state.matchTimeRemaining = total;
+            state.matchDuration = total;
+        }
+    }
+    updateTimerDisplay();
+}
+
+function cancelTimerKeyboard() {
+    const timerElement = document.getElementById('matchTimer');
+    timerElement.classList.remove('editing');
+    timerElement.style.pointerEvents = 'auto';
+    updateTimerDisplay();
 }
 
 function refreshTimerEditDisplay() {

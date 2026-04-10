@@ -129,6 +129,25 @@ body {
 }
 
 
+.match-timer.editing {
+    border: 3px solid #fbbf24;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(251, 191, 36, 0.1);
+}
+
+.match-timer input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: center;
+    width: 100px;
+    outline: none;
+    font-family: inherit;
+}
+
 .match-timer {
     font-size: 180px;
     font-weight: bold;
