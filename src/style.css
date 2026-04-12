@@ -219,6 +219,42 @@ body {
     box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
 }
 
+.undo-win-btn {
+    display: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 3px solid #f59e0b;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
+    letter-spacing: 1px;
+    animation: undoPulse 1.8s ease-in-out infinite;
+}
+
+.undo-win-btn.visible {
+    display: block;
+}
+
+.undo-win-btn:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.7);
+}
+
+.undo-win-btn:active {
+    transform: scale(0.96);
+}
+
+@keyframes undoPulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5); }
+    50%       { box-shadow: 0 4px 30px rgba(245, 158, 11, 0.9); }
+}
+
 .fullscreen-btn {
     padding: 12px 24px;
     font-size: 16px;

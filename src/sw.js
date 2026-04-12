@@ -1,4 +1,4 @@
-const CACHE_NAME = 'judo-scoreboard-v1';
+const CACHE_NAME = 'judo-scoreboard-v2';
 const ASSETS = [
     '/',
     '/index.html',

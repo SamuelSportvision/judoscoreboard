@@ -42,7 +42,10 @@ const state = {
     goldenScoreActive: false,
     goldenScoreTime: 0,
     goldenScoreInterval: null,
-    goldenScoreWinner: null  // { player, type } — set when GS ends via a score, cleared on undo
+    goldenScoreWinner: null,  // { player, type } — set when GS ends via a score, cleared on undo
+
+    // Undo win tracking
+    matchEndedDuringGoldenScore: false
 };
 
 // Age group configurations
@@ -140,6 +143,9 @@ function setupEventListeners() {
     
     // Fullscreen button
     document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+
+    // Undo win button
+    document.getElementById('undoWinBtn').addEventListener('click', undoMatchEnd);
 
     // Settings button
     document.getElementById('settingsBtn').addEventListener('click', openSettings);
@@ -411,7 +417,8 @@ function setupTimerEditListeners() {
 function endMatch(reason) {
     state.matchEnded = true;
     state.matchRunning = false;
-    
+    state.matchEndedDuringGoldenScore = state.goldenScoreActive;
+
     if (state.matchTimerInterval) {
         clearInterval(state.matchTimerInterval);
         state.matchTimerInterval = null;
@@ -462,8 +469,36 @@ function endMatch(reason) {
     
     statusElement.textContent = message;
     statusElement.classList.add('winner');
+
+    document.getElementById('undoWinBtn').classList.add('visible');
     
     console.log(`Match ended: ${reason}`);
+}
+
+// ===========================
+// UNDO WIN
+// ===========================
+function undoMatchEnd() {
+    state.matchEnded = false;
+    state.goldenScoreWinner = null;
+
+    const timerElement = document.getElementById('matchTimer');
+    const statusElement = document.getElementById('timerStatus');
+
+    timerElement.classList.remove('finished');
+    statusElement.classList.remove('winner');
+
+    if (state.matchEndedDuringGoldenScore) {
+        state.goldenScoreActive = true;
+        state.matchEndedDuringGoldenScore = false;
+        timerElement.classList.add('golden-score');
+        statusElement.textContent = 'GOLDEN SCORE — TAP TO START';
+    } else {
+        statusElement.textContent = 'PAUSED';
+    }
+
+    document.getElementById('undoWinBtn').classList.remove('visible');
+    console.log('Match result undone — match resumed from paused state');
 }
 
 // ===========================
@@ -791,6 +826,8 @@ function resetMatch() {
     timerElement.classList.remove('running', 'finished');
     statusElement.textContent = 'TAP TO START';
     statusElement.classList.remove('winner');
+    document.getElementById('undoWinBtn').classList.remove('visible');
+    state.matchEndedDuringGoldenScore = false;
     
     // Reset all score displays
     ['blue', 'white'].forEach(player => {
