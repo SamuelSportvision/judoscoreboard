@@ -129,25 +129,6 @@ body {
 }
 
 
-.match-timer.editing {
-    border: 3px solid #fbbf24;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(251, 191, 36, 0.1);
-}
-
-.match-timer input {
-    background: transparent;
-    border: none;
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    text-align: center;
-    width: 100px;
-    outline: none;
-    font-family: inherit;
-}
-
 .match-timer {
     font-size: 180px;
     font-weight: bold;
@@ -1244,20 +1225,6 @@ body {
 button:focus {
     outline: 3px solid rgba(102, 126, 234, 0.6);
     outline-offset: 2px;
-}
-
-/* ===========================
-   KEYBOARD HINT
-   =========================== */
-.keyboard-hint {
-    position: fixed;
-    bottom: 10px;
-    right: 15px;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.25);
-    letter-spacing: 1px;
-    pointer-events: none;
-    z-index: 100;
 }
 
 /* ===========================

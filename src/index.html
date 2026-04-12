@@ -8,8 +8,15 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>Judo Scoreboard</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Capacitor Scripts (for iOS app) -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+    </script>
     <script type="module" src="capacitor.js"></script>
 </head>
 <body>
@@ -26,7 +33,6 @@
             </div>
             
             <div class="match-timer-container">
-                <img src="logo.png" alt="Judo Otoshi" class="club-logo">
                 <div class="timer-controls-row">
                     <div class="match-timer" id="matchTimer">2:00</div>
                     <button class="timer-edit-btn" id="timerEditBtn">✎ EDIT</button>
@@ -164,9 +170,7 @@
         </div>
     </div>
 
-    <div class="keyboard-hint">Space = Timer &nbsp;|&nbsp; 1 = Osaekomi Blue &nbsp;|&nbsp; 2 = Osaekomi White &nbsp;|&nbsp; 3 = Stop</div>
-
-    <!-- Timer Edit Modal (no keyboard — iOS fullscreen safe) -->
+    <!-- Timer Edit Modal (tap-based — iPad safe) -->
     <div class="timer-edit-overlay" id="timerEditOverlay">
         <div class="timer-edit-modal">
             <div class="timer-edit-title">Set Match Time</div>
